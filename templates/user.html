@@ -3,10 +3,10 @@
 {% block title %} User page {% endblock %}
 
 {% block body %}
-<h1>{% if user %}
-    Hola {{ user }}
+<h1>{% if name%}
+    Hello {{ name}} !
   {% else %}
-    Hola extraño
+    hello, stranger
   {% endif %}
 </h1>
 {% endblock %}    
