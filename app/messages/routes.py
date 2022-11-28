@@ -1,5 +1,7 @@
+from app.messages import bp
 from flask import render_template
-from app.main import bp
+from app.models.message import Message
+
 
 @bp.route('/')
 def index():
