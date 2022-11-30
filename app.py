@@ -3,10 +3,6 @@ from flask import Flask, request, render_template, url_for, flash, redirect
 
 app = Flask(__name__)
 
-
-
-
-
 @app.route('/usuario/<name>')
 def user(name):
     return render_template("user.html", user = name)  

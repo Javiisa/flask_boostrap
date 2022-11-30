@@ -1,12 +1,13 @@
+from flask import render_template, request, flash,redirect
 from app.messages import bp
-from flask import render_template
+from app.extensions import db
 from app.models.message import Message
 
 
 @bp.route('/')
 def index():
     messages = Message.query.all()
-    return render_template('index.html', messages = messages)
+    return render_template('messages/index.html', messages = messages)
 
 @bp.route('/create', methods =('GET', 'POST'))
 def create():
