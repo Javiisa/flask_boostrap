@@ -1,4 +1,4 @@
-from flask import render_template, request, flash,redirect
+from flask import render_template, request, flash,redirect, url_for
 from app.messages import bp
 from app.extensions import db
 from app.models.message import Message
@@ -24,7 +24,7 @@ def create():
             message = Message(title = title, content = content, picture = picture)
             db.session.add(message)
             db.session.commit()
-            return redirect(url_for('index'))
+            return redirect(url_for('messages.index'))
 
     return render_template('create.html')
 
