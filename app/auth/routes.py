@@ -1,5 +1,6 @@
 from app.auth import bp
 from flask import render_template, request, flash, redirect, url_for
+from flask_login import login_user
 from app.models.user import User
 from app.extensions import db
 
@@ -29,3 +30,26 @@ def register():
             return redirect(url_for('auth.index'))
 
     return render_template('auth/register.html')
+
+
+@bp.route('/login', methods =('GET', 'POST'))
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password= request.form['password']
+        remember = request.form["remember_me"]
+
+        if not password:
+            flash('La contraseña del usuario es obligario')
+        elif not email:
+            flash('El correo es obligario')   
+        else:
+            user = User.query.filter_by(email=email).first()
+            if user and user.verify_password(password):
+                login_user(user, remember)
+                next = request.args.get('next')
+                if next is None:
+                    next = url_for('main.index')
+                return redirect(next)
+            flash('usuario o password incorrecto')
+    return render_template('auth/login.html')
