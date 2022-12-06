@@ -24,11 +24,11 @@ def register():
         elif not password == password_confirm:
             flash('La contraseña no coincide')    
         else:
-            user = User(username = username, email = email, password_hash = password)
+            user= User(username = username, email = email, password = password)
             db.session.add(user)
             db.session.commit()
-            return redirect(url_for('auth.index'))
-
+            flash('Usuario creado correctamente')
+            return redirect(url_for('auth.login'))
     return render_template('auth/register.html')
 
 
@@ -37,8 +37,8 @@ def login():
     if request.method == 'POST':
         email = request.form['email']
         password= request.form['password']
-        remember = request.form["remember_me"]
-
+        remember = request.form.get('remember_me')
+        
         if not password:
             flash('La contraseña del usuario es obligario')
         elif not email:
@@ -48,8 +48,9 @@ def login():
             if user and user.verify_password(password):
                 login_user(user, remember)
                 next = request.args.get('next')
-                if next is None:
+                if next is None or not next.sraerswith('/'):
                     next = url_for('main.index')
+                flash(f'Bienvenido {user.username}')    
                 return redirect(next)
             flash('usuario o password incorrecto')
     return render_template('auth/login.html')
