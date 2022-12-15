@@ -19,18 +19,20 @@ def create():
         title = request.form['title']
         content = request.form['content']
         picture = request.form['picture']
+        price = request.form['price']
+        link = request.form['link']
 
         if not title:
             flash('El titulo es obligatorio')
         elif not content:
             flash('El contenido es obligatorio')
         else:
-            message = Message(title = title, content = content, picture = picture, user = current_user)
+            message = Message(title = title, content = content, picture = picture, user = current_user, price = price, link = link)
             db.session.add(message)
             db.session.commit()
             return redirect(url_for('messages.index'))
 
-    return render_template('create.html')
+    return render_template('messages/create.html')
 
 
 @bp.route('/<id>/update', methods = ('GET', 'POST'))
@@ -42,9 +44,12 @@ def update(id):
             message.title = request.form['title']
             message.content = request.form['content']
             message.picture = request.form['picture']
+            message.price = request.form['price']
+            message.link = request.form['link']
+
             db.session.commit()
             return redirect('/')
-    return render_template('update.html', message = message) 
+    return render_template('messages/update.html', message = message) 
 
 @bp.route('/delete', methods = ['POST'])
 def delete():
