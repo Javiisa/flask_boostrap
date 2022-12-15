@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
-
 {% block title %} User page {% endblock %}
-
 {% block body %}
 <h1 class="text-center">Agrega un nuevo producto</h1>
 <form method="post">
@@ -15,19 +13,16 @@
            placeholder="Agrega tu Foto "
            value="{{ request.form['picture'] }}"
            class="form-control">
-      
     <label for="content" class="form-label" >Descripción del Producto</label>
     <textarea name="content" id="content"
               placeholder="Descripción"
               rows="15"
               cols="60"
               class="form-control">{{ request.form['content'] }}</textarea>
-    <label for="price">Precio</label>  
-    <input type="text" name="price" id="price" class="form-control">   
-         
-    <label for="link">Link de Pago</label>  
-    <input type="text" name="link" id="" class="form-control">
-
+    <label for="price">Precio</label>
+    <input type="text" name="price" id="price" class="form-control">
+    <label for="Link">Link de Pago</label>
+    <input type="text" name="link" id="link" class="form-control">
     <button type="submit" class="btn btn-primary mt-3">Submit</button>
 </form>
-{% endblock %}    
+{% endblock %}
